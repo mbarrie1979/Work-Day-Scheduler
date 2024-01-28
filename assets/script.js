@@ -1,9 +1,9 @@
 var currentDayHeader = $('#currentDay')
 currentDayHeader.addClass('display-4')
 var currentDate = dayjs().format('MMMM D, YYYY');
-var currentCurrentDate = currentDate;
 
 $(function () {
+  
   setInterval(function () {
     var currentTime = dayjs().format('hh:mm:ss');
     currentDate = dayjs().format('MMMM D, YYYY');
@@ -11,8 +11,8 @@ $(function () {
     currentDayHeader.text(currentDate)
   }, 1000);
 
-  var currentEntries = JSON.parse(localStorage.getItem(currentCurrentDate));
-  if (JSON.parse(localStorage.getItem(currentCurrentDate)) === null) {
+  var currentEntries = JSON.parse(localStorage.getItem(currentDate));
+  if (JSON.parse(localStorage.getItem(currentDate)) === null) {
     currentEntries = [];
   } else {
     for (var i = 0; i < currentEntries.length; i++) {
@@ -30,7 +30,7 @@ $(function () {
 
     // Check if we already have an entry for the currentDate and parse it, or initialize an empty array
     // var currentEntries = JSON.parse(localStorage.getItem(currentDate));
-    if (JSON.parse(localStorage.getItem(currentCurrentDate)) === null) {
+    if (JSON.parse(localStorage.getItem(currentDate)) === null) {
       currentEntries = [];
     };
 
