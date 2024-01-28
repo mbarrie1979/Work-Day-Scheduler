@@ -1,25 +1,42 @@
-var months = [
-  "January", "February", "March",
-  "April", "May", "June",
-  "July", "August", "September",
-  "October", "November", "December"
-];
-var currentMonthindex = dayjs().format('M');
-var currentDay = dayjs().format('D');
-var currentYear = dayjs().format('YYYY');
-var currentMonth = months[currentMonthindex - 1];
 var currentDayHeader = $('#currentDay')
 currentDayHeader.addClass('display-4')
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+
 $(function () {
   setInterval(function () {
     var currentTime = dayjs().format('hh:mm:ss');
-    var currentDate = (`${currentMonth} ${currentDay}, ${currentYear}`)
+    var currentDate = dayjs().format('MMMM D, YYYY');
     console.log(currentTime);
     currentDayHeader.text(currentDate)
-  }, 1000);
+  }, 100000);
+
+
+  $('.saveBtn').on('click', function () {
+    var textareaValue = $(this).closest('.time-block').find('textarea').val();
+    var divId = $(this).closest('.time-block').attr('id');
+    var currentDate = dayjs().format('MMMM D, YYYY');
+
+    // Check if we already have an entry for the currentDate and parse it, or initialize an empty array
+    var currentEntries = JSON.parse(localStorage.getItem(currentDate));
+    if (JSON.parse(localStorage.getItem(currentDate)) === null) {
+      currentEntries = [];
+    };
+
+    var newEntry = {
+      time: divId,
+      content: textareaValue
+    };
+
+    // Add the new entry to the array
+    currentEntries.push(newEntry);
+
+    // Save the updated array back to localStorage
+    localStorage.setItem(currentDate, JSON.stringify(currentEntries));
+
+    // Print the updated localStorage
+    console.log('Updated localStorage:', JSON.parse(localStorage.getItem(currentDate)));
+  });
+
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
