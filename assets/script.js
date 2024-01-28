@@ -1,14 +1,27 @@
 var currentDayHeader = $('#currentDay')
 currentDayHeader.addClass('display-4')
+var currentDate = dayjs().format('MMMM D, YYYY');
+var currentCurrentDate = currentDate;
 
 $(function () {
   setInterval(function () {
     var currentTime = dayjs().format('hh:mm:ss');
-    var currentDate = dayjs().format('MMMM D, YYYY');
+    currentDate = dayjs().format('MMMM D, YYYY');
     console.log(currentTime);
     currentDayHeader.text(currentDate)
   }, 1000);
 
+  var currentEntries = JSON.parse(localStorage.getItem(currentCurrentDate));
+  if (JSON.parse(localStorage.getItem(currentCurrentDate)) === null) {
+    currentEntries = [];
+  } else {
+    for (var i = 0; i < currentEntries.length; i++) {
+      var entry = currentEntries[i];
+      var idMatch = entry.time;
+      var scheduleText = entry.content;
+      $('#' + idMatch).find("textarea").val(scheduleText);
+    }
+  }
 
   $('.saveBtn').on('click', function () {
     var textareaValue = $(this).closest('.time-block').find('textarea').val();
@@ -16,8 +29,8 @@ $(function () {
     var currentDate = dayjs().format('MMMM D, YYYY');
 
     // Check if we already have an entry for the currentDate and parse it, or initialize an empty array
-    var currentEntries = JSON.parse(localStorage.getItem(currentDate));
-    if (JSON.parse(localStorage.getItem(currentDate)) === null) {
+    // var currentEntries = JSON.parse(localStorage.getItem(currentDate));
+    if (JSON.parse(localStorage.getItem(currentCurrentDate)) === null) {
       currentEntries = [];
     };
 
@@ -26,8 +39,15 @@ $(function () {
       content: textareaValue
     };
 
-    // Add the new entry to the array
+    var newEntryTime = newEntry.time;
+    // Add the new entry to the array but overwrite if it's the same timeblock
+    for (var i = 0; i < currentEntries.length; i++) {
+      if (currentEntries[i].time === newEntryTime)
+        currentEntries.splice([i], 1);
+
+    }
     currentEntries.push(newEntry);
+
 
     // Save the updated array back to localStorage
     localStorage.setItem(currentDate, JSON.stringify(currentEntries));
