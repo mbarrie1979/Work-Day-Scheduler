@@ -7,7 +7,7 @@ $(function () {
     var currentDate = dayjs().format('MMMM D, YYYY');
     console.log(currentTime);
     currentDayHeader.text(currentDate)
-  }, 100000);
+  }, 1000);
 
 
   $('.saveBtn').on('click', function () {
