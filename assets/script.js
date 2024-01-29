@@ -12,7 +12,7 @@ var hour = dayjs().hour();
 
 // function to run once html loads
 $(function () {
-
+  var currentEntries = [];
   // function runs every second to ensure date is always updated and time is accurate
   setInterval(function () {
     currentTime = dayjs().format('HH:mm:ss');
@@ -22,18 +22,21 @@ $(function () {
   }, 1000);
 
   // retrieve local storage to be parsed to time blocks
-  var currentEntries = JSON.parse(localStorage.getItem(currentDate));
-  if (JSON.parse(localStorage.getItem(currentDate)) === null) {
-    currentEntries = [];
-  } else {
-    // writing content of JSON to affiliated text area matched by ID
-    for (var i = 0; i < currentEntries.length; i++) {
-      var entry = currentEntries[i];
-      var idMatch = entry.time;
-      var scheduleText = entry.content;
-      $('#' + idMatch).find("textarea").val(scheduleText);
+  function updateScheduleEntries() {
+    // console.log("Entries Updated")
+    currentEntries = JSON.parse(localStorage.getItem(currentDate));
+    if (JSON.parse(localStorage.getItem(currentDate)) === null) {
+      currentEntries = [];
+    } else {
+      // writing content of JSON to affiliated text area matched by ID
+      for (var i = 0; i < currentEntries.length; i++) {
+        var entry = currentEntries[i];
+        var idMatch = entry.time;
+        var scheduleText = entry.content;
+        $('#' + idMatch).find("textarea").val(scheduleText);
+      }
     }
-  }
+  };
   // Event listener for save button
   $('.saveBtn').on('click', function () {
     var textareaValue = $(this).closest('.time-block').find('textarea').val();
@@ -76,7 +79,7 @@ $(function () {
   }
   // logic to handle adding and removing classes depending on current hour
   function updateTimeBlocks() {
-    console.log("changed")
+    // console.log("changed")
     for (var i = 0; i < timeDivs.length; i++) {
       if (timeDivs[i].attr('id') < hour) {
         timeDivs[i].addClass('past');
@@ -90,9 +93,12 @@ $(function () {
       }
     };
   };
+  // run on page load
   updateTimeBlocks();
-
+  updateScheduleEntries();
+  // run every 5 seconds to keep updated in real time
   setInterval(updateTimeBlocks, 5000);
+  setInterval(updateScheduleEntries, 5000);
 
 
 });
