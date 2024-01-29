@@ -67,19 +67,24 @@ $(function () {
     timeDivs.push(div);
   }
   // logic to handle adding and removing classes depending on current hour
-  for (var i = 0; i < timeDivs.length; i++) {
-    if (timeDivs[i].attr('id') < hour) {
-      timeDivs[i].addClass('past');
-      timeDivs[i].removeClass('present future');
-    } else if (timeDivs[i].attr('id') == hour) {
-      timeDivs[i].addClass('present');
-      timeDivs[i].removeClass('past future');
-    } else {
-      timeDivs[i].addClass('future');
-      timeDivs[i].removeClass('present past');
-    }
-  }
+  function updateTimeBlocks() {
+    console.log("colors applied");
+    for (var i = 0; i < timeDivs.length; i++) {
+      if (timeDivs[i].attr('id') < hour) {
+        timeDivs[i].addClass('past');
+        timeDivs[i].removeClass('present future');
+      } else if (timeDivs[i].attr('id') == hour) {
+        timeDivs[i].addClass('present');
+        timeDivs[i].removeClass('past future');
+      } else {
+        timeDivs[i].addClass('future');
+        timeDivs[i].removeClass('present past');
+      }
+    };
+  };
+  updateTimeBlocks();
 
+  setInterval(updateTimeBlocks, 60000);
 
 
 });
