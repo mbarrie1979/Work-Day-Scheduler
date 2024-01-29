@@ -68,7 +68,7 @@ $(function () {
   }
   // logic to handle adding and removing classes depending on current hour
   function updateTimeBlocks() {
-    console.log("colors applied");
+    //  console.log("changed")
     for (var i = 0; i < timeDivs.length; i++) {
       if (timeDivs[i].attr('id') < hour) {
         timeDivs[i].addClass('past');
@@ -84,7 +84,7 @@ $(function () {
   };
   updateTimeBlocks();
 
-  setInterval(updateTimeBlocks, 60000);
+  setInterval(updateTimeBlocks, 5000);
 
 
 });
