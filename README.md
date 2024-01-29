@@ -31,10 +31,13 @@ THEN the saved events persist
 ## How to Use
 
 
-1.View Current Date: Open the app to see today's date displayed at the top.
-2.Add Events: Click on a time block to enter an event for that hour.
-3.Save Events: Click the save button next to the time block to store your event.
-4.View Color-Coded Blocks: Each time block's color indicates whether the hour is past, present, or 
+1. **View Current Date**: Open the app to see today's date displayed at the top.
+
+2. **Add Events**: Click on a time block to enter an event for that hour.
+
+3. **Save Events**: Click the save button next to the time block to store your event.
+
+4. **View Color-Coded Blocks**: Each time block's color indicates whether the hour is past, present, or 
 future relative to the current time.
 
 Feel free to explore and manage your daily work schedule effectively with this intuitive scheduler!
