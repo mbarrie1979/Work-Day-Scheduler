@@ -28,6 +28,16 @@ THEN the text for that event is saved in local storage
 WHEN I refresh the page
 THEN the saved events persist
 
+## How to Use
+
+
+1.View Current Date: Open the app to see today's date displayed at the top.
+2.Add Events: Click on a time block to enter an event for that hour.
+3.Save Events: Click the save button next to the time block to store your event.
+4.View Color-Coded Blocks: Each time block's color indicates whether the hour is past, present, or 
+future relative to the current time.
+
+Feel free to explore and manage your daily work schedule effectively with this intuitive scheduler!
 
 ## Features
 
@@ -45,14 +55,11 @@ THEN the saved events persist
 
 Access the live application here: [Work Day Scheduler](https://mbarrie1979.github.io/Work-Day-Scheduler/)
 
+
+## Credits
+[Original Code Repo](https://github.com/coding-boot-camp/crispy-octo-meme)
+- **Additional Code**: Mark Barrie
+
 ---
 
-### Code Snippets
 
-The application's functionality is powered by jQuery and Day.js. Below are key sections of the JavaScript code:
-
-```html
-<!-- HTML structure showing a sample time block -->
-<div id="9" class="row time-block">
-  <!-- ... other time blocks ... -->
-</div>
