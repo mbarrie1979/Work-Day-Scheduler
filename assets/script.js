@@ -1,13 +1,19 @@
+// declare and style for date display
 var currentDayHeader = $('#currentDay')
 currentDayHeader.addClass('display-4')
+
+// current date and time variables
 var currentDate = dayjs().format('MMMM D, YYYY');
 var currentTime = dayjs().format('HH:mm:ss');
+
+// variable for hours only to compare to timeblock IDs for color change
 var hour = dayjs().hour();
-// var hour = 14
 
 
+// function to run once html loads
 $(function () {
 
+  // function runs every second to ensure date is always updated and time is accurate
   setInterval(function () {
     currentTime = dayjs().format('HH:mm:ss');
     currentDate = dayjs().format('MMMM D, YYYY');
@@ -15,10 +21,12 @@ $(function () {
     currentDayHeader.text(currentDate)
   }, 1000);
 
+  // retrieve local storage to be parsed to time blocks
   var currentEntries = JSON.parse(localStorage.getItem(currentDate));
   if (JSON.parse(localStorage.getItem(currentDate)) === null) {
     currentEntries = [];
   } else {
+    // writing content of JSON to affiliated text area matched by ID
     for (var i = 0; i < currentEntries.length; i++) {
       var entry = currentEntries[i];
       var idMatch = entry.time;
@@ -26,14 +34,13 @@ $(function () {
       $('#' + idMatch).find("textarea").val(scheduleText);
     }
   }
-
+  // Event listener for save button
   $('.saveBtn').on('click', function () {
     var textareaValue = $(this).closest('.time-block').find('textarea').val();
     var divId = $(this).closest('.time-block').attr('id');
     currentDate = dayjs().format('MMMM D, YYYY');
 
     // Check if we already have an entry for the currentDate and parse it, or initialize an empty array
-    // var currentEntries = JSON.parse(localStorage.getItem(currentDate));
     if (JSON.parse(localStorage.getItem(currentDate)) === null) {
       currentEntries = [];
     };
@@ -44,6 +51,7 @@ $(function () {
     };
 
     var newEntryTime = newEntry.time;
+
     // Add the new entry to the array but overwrite if it's the same timeblock
     for (var i = 0; i < currentEntries.length; i++) {
       if (currentEntries[i].time === newEntryTime)
