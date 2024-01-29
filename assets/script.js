@@ -17,6 +17,7 @@ $(function () {
   setInterval(function () {
     currentTime = dayjs().format('HH:mm:ss');
     currentDate = dayjs().format('MMMM D, YYYY');
+    hour = dayjs().hour();
     // console.log(currentTime);
     currentDayHeader.text(currentDate)
   }, 1000);
