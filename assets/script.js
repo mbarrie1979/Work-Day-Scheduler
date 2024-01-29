@@ -23,21 +23,20 @@ $(function () {
   }, 1000);
 
   // retrieve local storage to be parsed to time blocks
-  function updateScheduleEntries() {
-    // console.log("Entries Updated")
-    currentEntries = JSON.parse(localStorage.getItem(currentDate));
-    if (JSON.parse(localStorage.getItem(currentDate)) === null) {
-      currentEntries = [];
-    } else {
-      // writing content of JSON to affiliated text area matched by ID
-      for (var i = 0; i < currentEntries.length; i++) {
-        var entry = currentEntries[i];
-        var idMatch = entry.time;
-        var scheduleText = entry.content;
-        $('#' + idMatch).find("textarea").val(scheduleText);
-      }
+
+  currentEntries = JSON.parse(localStorage.getItem(currentDate));
+  if (JSON.parse(localStorage.getItem(currentDate)) === null) {
+    currentEntries = [];
+  } else {
+    // writing content of JSON to affiliated text area matched by ID
+    for (var i = 0; i < currentEntries.length; i++) {
+      var entry = currentEntries[i];
+      var idMatch = entry.time;
+      var scheduleText = entry.content;
+      $('#' + idMatch).find("textarea").val(scheduleText);
     }
-  };
+  }
+
   // Event listener for save button
   $('.saveBtn').on('click', function () {
     var textareaValue = $(this).closest('.time-block').find('textarea').val();
@@ -74,7 +73,7 @@ $(function () {
 
   var timeDivs = [];
   // looping through divs via ID and placing them in an array
-  for (var i = 9; i <= 17; i++) {
+  for (var i = 9; i <= 16; i++) {
     var div = $('#' + i);
     timeDivs.push(div);
   }
@@ -96,10 +95,9 @@ $(function () {
   };
   // run on page load
   updateTimeBlocks();
-  updateScheduleEntries();
   // run every 5 seconds to keep updated in real time
   setInterval(updateTimeBlocks, 5000);
-  setInterval(updateScheduleEntries, 5000);
+
 
 
 });
